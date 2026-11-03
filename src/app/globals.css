@@ -1,26 +1,96 @@
 @import "tailwindcss";
 
+/* dark: utilities follow the theme toggle, not the system setting. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Magazine chart + sticker style. Light theme: the "Lazy Days" pastel palette
+   (public/light_pallete.webp): off-white #f0eeea page, blush #f0ddd6 for
+   active/hover fills, taupe #d6cbbf rules, peach #f2c3b9 for the #1 spot,
+   mint #d2e0d3 for "live/new" stickers, sage #97b3ae for the #1 sticker.
+   Pastels are fills only: text, links and buttons use a deep sage (--cobalt)
+   and chart bars a mid sage (--bar), both darkened from #97b3ae so they read
+   on the light background. Token names are kept from the first palette.
+   Light is the default whatever the system theme is; the header toggle
+   switches to the dark theme below (src/components/theme-toggle.tsx). */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --page: #f0eeea;
+  --card: #fbfaf8;
+  --card-2: #f0ddd6;
+  --ink: #2b2826;
+  --ink-2: #4d4844;
+  --muted: #625b55;
+  --outline: #2b2826;
+  --hair: #d6cbbf;
+  --cobalt: #3f5e58;
+  --on-cobalt: #ffffff;
+  --cobalt-soft: #f2c3b9;
+  --bar: #6f928c;
+  --lemon: #d2e0d3;
+  --on-lemon: #2b2826;
+  --coral: #97b3ae;
+  --on-coral: #2b2826;
+  --danger: #a63d35;
+}
+
+/* Dark theme: the same Lazy Days palette at night. Deep green-grey page and
+   cards, a dark blush for active/hover fills, dark peach for the #1 spot.
+   Sage lightens to become the text accent; mint and sage stickers stay as
+   they are, with dark text. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #1a1f1e;
+  --card: #232a28;
+  --card-2: #3a2f2c;
+  --ink: #eeeae4;
+  --ink-2: #cfc9c1;
+  --muted: #a39c94;
+  --outline: #7f8c88;
+  --hair: #36403d;
+  --cobalt: #a9c7c1;
+  --on-cobalt: #1a1f1e;
+  --cobalt-soft: #4a3430;
+  --bar: #8fb0aa;
+  --lemon: #d2e0d3;
+  --on-lemon: #1a1f1e;
+  --coral: #97b3ae;
+  --on-coral: #1a1f1e;
+  --danger: #f29c93;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-page: var(--page);
+  --color-card: var(--card);
+  --color-card-2: var(--card-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-outline: var(--outline);
+  --color-hair: var(--hair);
+  --color-cobalt: var(--cobalt);
+  --color-on-cobalt: var(--on-cobalt);
+  --color-cobalt-soft: var(--cobalt-soft);
+  --color-bar: var(--bar);
+  --color-lemon: var(--lemon);
+  --color-on-lemon: var(--on-lemon);
+  --color-coral: var(--coral);
+  --color-on-coral: var(--on-coral);
+  --color-danger: var(--danger);
+  /* Korean names fall back to the system Korean font. */
+  --font-sans: var(--font-instrument), "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  --font-display: var(--font-bricolage), "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--page);
+  color: var(--ink);
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 2px;
 }
